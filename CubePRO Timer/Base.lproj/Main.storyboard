@@ -1,24 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="inw-gN-xKZ">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Timer-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TimerController" customModule="CubePRO_Timer" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scramble" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHD-q1-fn1">
+                                <rect key="frame" x="16" y="44" width="343" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgx-33-V5I">
+                                <rect key="frame" x="16" y="346" width="343" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Gtl-Pf-g8Y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sgx-33-V5I" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="7ja-A5-ONE"/>
+                            <constraint firstItem="sgx-33-V5I" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8mC-jL-W3g"/>
+                            <constraint firstItem="iHD-q1-fn1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Ex8-8O-wL8"/>
+                            <constraint firstItem="iHD-q1-fn1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Tff-Dn-NWC"/>
+                            <constraint firstItem="iHD-q1-fn1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Z8x-rx-rjb"/>
+                            <constraint firstItem="sgx-33-V5I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ixi-lW-6uB"/>
+                            <constraint firstItem="sgx-33-V5I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="r2h-wV-c0U"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Timer" image="timer (1)" id="tDd-Ji-Uux"/>
+                    <connections>
+                        <outlet property="scrambleLabel" destination="iHD-q1-fn1" id="pRh-n6-YWo"/>
+                        <outlet property="timeLabel" destination="sgx-33-V5I" id="uCM-L8-gMe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="967" y="-474"/>
+        </scene>
+        <!--Stats-->
+        <scene sceneID="PIr-Fv-6LB">
+            <objects>
+                <viewController id="Orn-OM-WaE" customClass="StatsController" customModule="CubePRO_Timer" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B3k-UG-Mnx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5Mg-bX-6zf"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Stats" image="graph_nodes (1)" id="IkP-cr-PV8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-Cx-P7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1610" y="-474"/>
+        </scene>
+        <!--More Controller-->
+        <scene sceneID="GIR-nR-MGy">
+            <objects>
+                <viewController id="4rx-Vd-sJa" customClass="MoreController" customModule="CubePRO_Timer" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hd4-mH-cWV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="yTj-FY-R6D"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="Haw-y2-gtF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7IW-fr-rdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1609" y="174"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="ROx-0A-hB0">
+            <objects>
+                <viewController id="pWi-nJ-jyx" customClass="HelpController" customModule="CubePRO_Timer" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="29c-s0-0oP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="bLv-so-pwC"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Help" image="help" id="TTg-SC-cox"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTa-3L-Xpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="966" y="174"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="WdB-n8-emc">
+            <objects>
+                <tabBarController id="inw-gN-xKZ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z3H-0w-Din">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="bkQ-h2-285"/>
+                        <segue destination="Orn-OM-WaE" kind="relationship" relationship="viewControllers" id="l7m-ZI-Tde"/>
+                        <segue destination="pWi-nJ-jyx" kind="relationship" relationship="viewControllers" id="PYH-Fg-CRS"/>
+                        <segue destination="4rx-Vd-sJa" kind="relationship" relationship="viewControllers" id="eFe-V3-sjG"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QmO-ZA-n2y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="178" y="-168"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="graph_nodes (1)" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="help" width="32" height="32"/>
+        <image name="timer (1)" width="42.666667938232422" height="42.666667938232422"/>
+    </resources>
 </document>
