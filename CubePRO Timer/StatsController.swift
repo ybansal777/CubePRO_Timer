@@ -8,15 +8,41 @@
 
 import UIKit
 
-class StatsController: UIViewController {
+class StatsController: UITableViewController {
 
+    
+    
+    let statListArray = ["Number of Solves","Best Time","Worst Time","Session Average"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    }
+
+    
+    
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return statListArray.count
+    }
+
+    
+    
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = statListArray[indexPath.row]
+        return cell
+    }
+
+    
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
     }
 
-
-
+    
 }

@@ -33,9 +33,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Solves: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzo-d9-Cqm">
+                                <rect key="frame" x="16" y="708" width="70" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Pzo-d9-Cqm" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" id="3uH-pd-jPd"/>
                             <constraint firstItem="sgx-33-V5I" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="7ja-A5-ONE"/>
                             <constraint firstItem="sgx-33-V5I" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8mC-jL-W3g"/>
                             <constraint firstItem="iHD-q1-fn1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Ex8-8O-wL8"/>
@@ -43,12 +50,14 @@
                             <constraint firstItem="iHD-q1-fn1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Z8x-rx-rjb"/>
                             <constraint firstItem="sgx-33-V5I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ixi-lW-6uB"/>
                             <constraint firstItem="sgx-33-V5I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="r2h-wV-c0U"/>
+                            <constraint firstItem="Pzo-d9-Cqm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x11-Dm-wHf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Timer" image="timer (1)" id="tDd-Ji-Uux"/>
                     <connections>
                         <outlet property="scrambleLabel" destination="iHD-q1-fn1" id="pRh-n6-YWo"/>
+                        <outlet property="solveLabel" destination="Pzo-d9-Cqm" id="dG3-qM-NjV"/>
                         <outlet property="timeLabel" destination="sgx-33-V5I" id="uCM-L8-gMe"/>
                     </connections>
                 </viewController>
@@ -57,22 +66,39 @@
             <point key="canvasLocation" x="967" y="-474"/>
         </scene>
         <!--Stats-->
-        <scene sceneID="PIr-Fv-6LB">
+        <scene sceneID="5MU-U0-2wY">
             <objects>
-                <viewController id="Orn-OM-WaE" customClass="StatsController" customModule="CubePRO_Timer" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B3k-UG-Mnx">
+                <tableViewController wantsFullScreenLayout="YES" id="F0K-pp-dUW" customClass="StatsController" customModule="CubePRO_Timer" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ioX-x6-m7R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="5Mg-bX-6zf"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Stats" image="graph_nodes (1)" id="IkP-cr-PV8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-Cx-P7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StatsCell" id="1WH-NU-05q">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1WH-NU-05q" id="yu3-aJ-zfX">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="F0K-pp-dUW" id="Pvw-bK-iEC"/>
+                            <outlet property="delegate" destination="F0K-pp-dUW" id="WhI-jt-hvd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Stats" id="EQx-B1-9B6">
+                        <barButtonItem key="leftBarButtonItem" title="Session" image="appiconlist2" id="1Pv-8w-E1a">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wD1-e1-jDC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1610" y="-474"/>
+            <point key="canvasLocation" x="2284" y="-474"/>
         </scene>
-        <!--More Controller-->
+        <!--More-->
         <scene sceneID="GIR-nR-MGy">
             <objects>
                 <viewController id="4rx-Vd-sJa" customClass="MoreController" customModule="CubePRO_Timer" sceneMemberID="viewController">
@@ -82,11 +108,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yTj-FY-R6D"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="Haw-y2-gtF"/>
+                    <navigationItem key="navigationItem" title="More" id="dHa-bC-Hj0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7IW-fr-rdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="174"/>
+            <point key="canvasLocation" x="2986" y="174"/>
         </scene>
         <!--Help-->
         <scene sceneID="ROx-0A-hB0">
@@ -98,11 +124,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="bLv-so-pwC"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Help" image="help" id="TTg-SC-cox"/>
+                    <navigationItem key="navigationItem" title="Help" id="Ht4-FA-jxK"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTa-3L-Xpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966" y="174"/>
+            <point key="canvasLocation" x="1609" y="174"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="WdB-n8-emc">
@@ -115,17 +141,78 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="bkQ-h2-285"/>
-                        <segue destination="Orn-OM-WaE" kind="relationship" relationship="viewControllers" id="l7m-ZI-Tde"/>
-                        <segue destination="pWi-nJ-jyx" kind="relationship" relationship="viewControllers" id="PYH-Fg-CRS"/>
-                        <segue destination="4rx-Vd-sJa" kind="relationship" relationship="viewControllers" id="eFe-V3-sjG"/>
+                        <segue destination="6ae-F1-6Bu" kind="relationship" relationship="viewControllers" id="SIB-Lf-nJY"/>
+                        <segue destination="m9J-R0-qwg" kind="relationship" relationship="viewControllers" id="PYH-Fg-CRS"/>
+                        <segue destination="o1H-Ds-AVD" kind="relationship" relationship="viewControllers" id="eFe-V3-sjG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QmO-ZA-n2y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="178" y="-168"/>
         </scene>
+        <!--Stats-->
+        <scene sceneID="Gp0-Av-Xr5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6ae-F1-6Bu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Stats" image="graph_nodes (1)" id="aUa-4n-rBT"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vtd-D4-TIY">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.20224562287330627" green="0.5951007604598999" blue="0.85695862770080566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="F0K-pp-dUW" kind="relationship" relationship="rootViewController" id="idZ-uR-hKv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wCv-4W-wr8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1608.8" y="-474.38423645320199"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="6vf-Q8-9Tk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m9J-R0-qwg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Help" image="help" id="TTg-SC-cox"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lma-18-ahb">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2022456229" green="0.59510076050000005" blue="0.85695862769999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pWi-nJ-jyx" kind="relationship" relationship="rootViewController" id="7tt-vS-f6H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XRd-Zt-iXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="965.60000000000002" y="173.64532019704436"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jgq-2d-hzE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o1H-Ds-AVD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="more" id="Haw-y2-gtF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Kzf-wi-CtQ">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2022456229" green="0.59510076050000005" blue="0.85695862769999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4rx-Vd-sJa" kind="relationship" relationship="rootViewController" id="Th2-fq-BGQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XKS-yG-P5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2284" y="174"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="appiconlist2" width="32" height="32"/>
         <image name="graph_nodes (1)" width="42.666667938232422" height="42.666667938232422"/>
         <image name="help" width="32" height="32"/>
         <image name="timer (1)" width="42.666667938232422" height="42.666667938232422"/>

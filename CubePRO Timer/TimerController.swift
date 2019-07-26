@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ChameleonFramework
 
 class TimerController: UIViewController {
     
@@ -17,9 +17,11 @@ class TimerController: UIViewController {
     
     @IBOutlet var scrambleLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var solveLabel: UILabel!
     
-    
+    var solves : [String] = []
     var start = false
+    var finish = true
     var counter = 0.0
     var timer = Timer()
     var isPlaying = false
@@ -29,6 +31,7 @@ class TimerController: UIViewController {
             counter = 0.0
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
             isPlaying = true
+            finish = false
         }
     }
     
@@ -140,6 +143,11 @@ class TimerController: UIViewController {
         self.view.addGestureRecognizer(endTap)
         self.view.isUserInteractionEnabled = true
         
+        let sessionTap = UITapGestureRecognizer(target: self, action: #selector(self.resetTap))
+        sessionTap.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(sessionTap)
+        self.view.isUserInteractionEnabled = true
+        
         
         
     }
@@ -161,7 +169,24 @@ class TimerController: UIViewController {
                 self.stopTimer()
             })
             let Yes = UIAlertAction(title: "Yes", style: .default, handler:  { (UIAlertAction) in
-                self.timeLabel.text = "Time"
+                if self.solves.count == 0 {
+                    print("No Solves")
+                    self.timeLabel.text = "Time"
+                }
+                if self.timeLabel.text == "Time" && self.solves.count != 0{
+                    self.solves.remove(at: self.solves.count-1)
+                    self.solveLabel.text = "Solves: " + String(self.solves.count)
+                }
+                if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == true{
+                    self.stopTimer()
+                    self.solves.remove(at: self.solves.count-1)
+                    self.solveLabel.text = "Solves: " + String(self.solves.count)
+                    self.timeLabel.text = "Time"
+                }
+                if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == false{
+                    self.solveLabel.text = "Solves: " + String(self.solves.count)
+                    self.timeLabel.text = "Time"
+                }
             })
             
             delete.addAction(No)
@@ -174,7 +199,7 @@ class TimerController: UIViewController {
     @objc func longPress(press:UILongPressGestureRecognizer) -> Void {
         if press.state == .began {
             print("Timer Ready")
-            self.timeLabel.textColor = UIColor.green
+            self.timeLabel.textColor = UIColor.flatSkyBlue()
             
         }
         if press.state == .ended {
@@ -192,12 +217,38 @@ class TimerController: UIViewController {
             print("Timer Stop")
             start = false
             stopTimer()
+            finish = true
+            self.solves.append(self.timeLabel.text!)
+            self.solveLabel.text = "Solves: " + String(self.solves.count)
             generateScramble()
             
         }
     }
     
 
+    @objc func resetTap(_ sender: UITapGestureRecognizer) {
+        if true {
+            print("Session Reset")
+            start = false
+            stopTimer()
+            finish = true
+            let reset = UIAlertController(title: "Reset your Session", message: "Would you like to reset?", preferredStyle: .alert)
+            let No = UIAlertAction(title: "No", style: .default, handler:  { (UIAlertAction) in
+                self.stopTimer()
+            })
+            let Yes = UIAlertAction(title: "Yes", style: .default, handler:  { (UIAlertAction) in
+                self.solves.removeAll()
+                self.solveLabel.text = "Solves: " + String(self.solves.count)
+                self.timeLabel.text = "Time"
+                self.generateScramble()
+            })
+            reset.addAction(No)
+            reset.addAction(Yes)
+            
+            present(reset, animated: true, completion: nil)
+            
+        }
+    }
 
 
 }
