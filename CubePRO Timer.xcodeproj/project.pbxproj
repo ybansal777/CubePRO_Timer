@@ -12,9 +12,9 @@
 		4ED716BC22E8F908005C6A23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED716BA22E8F908005C6A23 /* Main.storyboard */; };
 		4ED716BE22E8F909005C6A23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED716BD22E8F909005C6A23 /* Assets.xcassets */; };
 		4ED716C122E8F909005C6A23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED716BF22E8F909005C6A23 /* LaunchScreen.storyboard */; };
-		4ED716CF22EA2AF7005C6A23 /* StatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED716CE22EA2AF7005C6A23 /* StatsController.swift */; };
 		4ED716D122EA2B35005C6A23 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED716D022EA2B35005C6A23 /* HelpController.swift */; };
 		4ED716D322EA2B4A005C6A23 /* MoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED716D222EA2B4A005C6A23 /* MoreController.swift */; };
+		4ED716DB22EAE0C2005C6A23 /* StatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED716DA22EAE0C2005C6A23 /* StatsController.swift */; };
 		6F658BC535C1236E6761B141 /* Pods_CubePRO_Timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD62A555A55A96C7536E490 /* Pods_CubePRO_Timer.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,9 +27,9 @@
 		4ED716BD22E8F909005C6A23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ED716C022E8F909005C6A23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4ED716C222E8F909005C6A23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4ED716CE22EA2AF7005C6A23 /* StatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsController.swift; sourceTree = "<group>"; };
 		4ED716D022EA2B35005C6A23 /* HelpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		4ED716D222EA2B4A005C6A23 /* MoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreController.swift; sourceTree = "<group>"; };
+		4ED716DA22EAE0C2005C6A23 /* StatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsController.swift; sourceTree = "<group>"; };
 		BFD62A555A55A96C7536E490 /* Pods_CubePRO_Timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CubePRO_Timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F726B0EEDC39CF3F51E745 /* Pods-CubePRO Timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CubePRO Timer.release.xcconfig"; path = "Target Support Files/Pods-CubePRO Timer/Pods-CubePRO Timer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,7 +69,7 @@
 			children = (
 				4ED716B622E8F908005C6A23 /* AppDelegate.swift */,
 				4ED716B822E8F908005C6A23 /* TimerController.swift */,
-				4ED716CE22EA2AF7005C6A23 /* StatsController.swift */,
+				4ED716DA22EAE0C2005C6A23 /* StatsController.swift */,
 				4ED716D022EA2B35005C6A23 /* HelpController.swift */,
 				4ED716D222EA2B4A005C6A23 /* MoreController.swift */,
 				4ED716BA22E8F908005C6A23 /* Main.storyboard */,
@@ -218,9 +218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ED716D322EA2B4A005C6A23 /* MoreController.swift in Sources */,
+				4ED716DB22EAE0C2005C6A23 /* StatsController.swift in Sources */,
 				4ED716D122EA2B35005C6A23 /* HelpController.swift in Sources */,
 				4ED716B922E8F908005C6A23 /* TimerController.swift in Sources */,
-				4ED716CF22EA2AF7005C6A23 /* StatsController.swift in Sources */,
 				4ED716B722E8F908005C6A23 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

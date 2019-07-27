@@ -9,9 +9,14 @@
 import UIKit
 import ChameleonFramework
 
+
+
 class TimerController: UIViewController {
     
-    
+    struct globalVariable {
+        static var solveCount : Int = 0
+        static var solveTimes : [String] = []
+    }
     
     
     
@@ -19,12 +24,15 @@ class TimerController: UIViewController {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var solveLabel: UILabel!
     
+    let defaults = UserDefaults.standard
     var solves : [String] = []
     var start = false
     var finish = true
     var counter = 0.0
     var timer = Timer()
     var isPlaying = false
+    
+    
     
     func startTimer() {
         if start == true {
@@ -113,16 +121,30 @@ class TimerController: UIViewController {
         scrambleLabel.text = scramble
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        globalVariable.solveCount = solves.count
+        globalVariable.solveTimes = solves
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        globalVariable.solveCount = solves.count
+        globalVariable.solveTimes = solves
+    }
     
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        globalVariable.solveCount = solves.count
+        globalVariable.solveTimes = solves
         timeLabel.text = "Time"
         timeLabel.textColor = UIColor.black
         generateScramble()
+        if let solve = defaults.array(forKey: "SolvesArray") as? [String] {
+            solves = solve
+            self.solveLabel.text = "Solves: " + String(self.solves.count)
+        }
         
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeAction(gesture:)))
         rightSwipe.direction = .right
@@ -152,6 +174,8 @@ class TimerController: UIViewController {
         
     }
     
+    
+    
     @objc func swipeAction(gesture:UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizer.Direction.right {
             print("Swipe Right")
@@ -167,25 +191,39 @@ class TimerController: UIViewController {
             let delete = UIAlertController(title: "Delete your Solve", message: "Confirm this deletion?", preferredStyle: .alert)
             let No = UIAlertAction(title: "No", style: .default, handler:  { (UIAlertAction) in
                 self.stopTimer()
+                globalVariable.solveCount = self.solves.count
+                globalVariable.solveTimes = self.solves
             })
             let Yes = UIAlertAction(title: "Yes", style: .default, handler:  { (UIAlertAction) in
                 if self.solves.count == 0 {
                     print("No Solves")
+                    self.defaults.set(self.solves, forKey: "SolvesArray")
                     self.timeLabel.text = "Time"
+                    globalVariable.solveCount = self.solves.count
+                    globalVariable.solveTimes = self.solves
                 }
                 if self.timeLabel.text == "Time" && self.solves.count != 0{
                     self.solves.remove(at: self.solves.count-1)
                     self.solveLabel.text = "Solves: " + String(self.solves.count)
+                    self.defaults.set(self.solves, forKey: "SolvesArray")
+                    globalVariable.solveCount = self.solves.count
+                    globalVariable.solveTimes = self.solves
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == true{
                     self.stopTimer()
                     self.solves.remove(at: self.solves.count-1)
                     self.solveLabel.text = "Solves: " + String(self.solves.count)
+                    self.defaults.set(self.solves, forKey: "SolvesArray")
                     self.timeLabel.text = "Time"
+                    globalVariable.solveCount = self.solves.count
+                    globalVariable.solveTimes = self.solves
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == false{
                     self.solveLabel.text = "Solves: " + String(self.solves.count)
+                    self.defaults.set(self.solves, forKey: "SolvesArray")
                     self.timeLabel.text = "Time"
+                    globalVariable.solveCount = self.solves.count
+                    globalVariable.solveTimes = self.solves
                 }
             })
             
@@ -216,10 +254,14 @@ class TimerController: UIViewController {
         if isPlaying == true {
             print("Timer Stop")
             start = false
+            isPlaying = false
             stopTimer()
             finish = true
             self.solves.append(self.timeLabel.text!)
             self.solveLabel.text = "Solves: " + String(self.solves.count)
+            self.defaults.set(self.solves, forKey: "SolvesArray")
+            globalVariable.solveCount = solves.count
+            globalVariable.solveTimes = solves
             generateScramble()
             
         }
@@ -230,6 +272,7 @@ class TimerController: UIViewController {
         if true {
             print("Session Reset")
             start = false
+            isPlaying = false
             stopTimer()
             finish = true
             let reset = UIAlertController(title: "Reset your Session", message: "Would you like to reset?", preferredStyle: .alert)
@@ -239,7 +282,10 @@ class TimerController: UIViewController {
             let Yes = UIAlertAction(title: "Yes", style: .default, handler:  { (UIAlertAction) in
                 self.solves.removeAll()
                 self.solveLabel.text = "Solves: " + String(self.solves.count)
+                self.defaults.set(self.solves, forKey: "SolvesArray")
                 self.timeLabel.text = "Time"
+                globalVariable.solveCount = self.solves.count
+                globalVariable.solveTimes = self.solves
                 self.generateScramble()
             })
             reset.addAction(No)
