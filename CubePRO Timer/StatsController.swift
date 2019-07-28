@@ -14,39 +14,57 @@ struct Solves {
     var result : String
     
 }
+
+var indexNumber = 0
+var numbSolves = [Solves(id: 1, title: "Number Of Solves", result: "0"), Solves(id: 2, title: "Session Average", result: "00.00"), Solves(id: 3, title: "Best Time", result: "00.00"), Solves(id: 4, title: "Worst Time", result: "00.00")]
+
 class StatsController: UITableViewController {
     
     var numbOfSolves : Int = 0
     var solveArray : [String] = []
-    var intSolveArray : Array<Float>!
-    var numbSolves = [Solves(id: 1, title: "Number Of Solves", result: "0"), Solves(id: 2, title: "Session Average", result: "00.00"), Solves(id: 3, title: "Best Time", result: "00.00"), Solves(id: 4, title: "Worst Time", result: "00.00")]
-    
-
+    var intSolveArray : Array<Double>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         numbOfSolves = TimerController.globalVariable.solveCount
         numbSolves[0].result = String(numbOfSolves)
         solveArray = TimerController.globalVariable.solveTimes
-        intSolveArray = solveArray.map { Float($0)!}
+        intSolveArray = solveArray.map { Double($0)!}
+        self.tableView.reloadData()
         if intSolveArray.count == 0 {
             numbSolves[2].result = "00.00"
             numbSolves[3].result = "00.00"
+            numbSolves[1].result = "00.00"
+        }
+        if intSolveArray.count == 1 {
+            numbSolves[1].result = "00.00"
+        }
+        if intSolveArray.count == 2 {
+            numbSolves[1].result = "00.00"
         }
         if intSolveArray.count != 0 {
             let a = intSolveArray.min()
             let b = String(a!)
             if b != "" {
-                print("Best: \(b)")
                 numbSolves[2].result = b
             }
             let c = intSolveArray.max()
             let d = String(c!)
             if d != "" {
-                print("Best: \(d)")
                 numbSolves[3].result = d
             }
+            if solveArray.count > 2 {
+                var f = intSolveArray.sorted()
+                f.remove(at: 0)
+                f.remove(at: intSolveArray!.count-2)
+                let total = f.reduce(0, +)
+                let average = total/Double(f.count)
+                let roundedAverage = Double(round(100*average)/100)
+                let normalRoundedAverage = String(format: "%.2f", roundedAverage)
+                numbSolves[1].result = normalRoundedAverage
+            }
         }
+        
         
         
         
@@ -57,25 +75,40 @@ class StatsController: UITableViewController {
         self.tableView.reloadData()
         numbOfSolves = TimerController.globalVariable.solveCount
         solveArray = TimerController.globalVariable.solveTimes
-        intSolveArray = solveArray.map { Float($0)!}
+        intSolveArray = solveArray.map { Double($0)!}
         numbSolves[0].result = String(numbOfSolves)
         if intSolveArray.count == 0 {
             numbSolves[2].result = "00.00"
             numbSolves[3].result = "00.00"
+            numbSolves[1].result = "00.00"
+        }
+        if intSolveArray.count == 1 {
+            numbSolves[1].result = "00.00"
+        }
+        if intSolveArray.count == 2 {
+            numbSolves[1].result = "00.00"
         }
         if intSolveArray.count != 0 {
             let a = intSolveArray.min()
             let b = String(a!)
             if b != "" {
-                print("Best: \(b)")
                 numbSolves[2].result = b
             }
             let c = intSolveArray.max()
             let d = String(c!)
             if d != "" {
-                print("Best: \(d)")
                 numbSolves[3].result = d
             }
+        }
+        if solveArray.count > 2 {
+            var f = intSolveArray.sorted()
+            f.remove(at: 0)
+            f.remove(at: intSolveArray!.count-2)
+            let total = f.reduce(0, +)
+            let average = total/Double(f.count)
+            let roundedAverage = Double(round(100*average)/100)
+            let normalRoundedAverage = String(format: "%.2f", roundedAverage)
+            numbSolves[1].result = normalRoundedAverage
         }
         print("solveCount is: \(TimerController.globalVariable.solveCount)")
         if TimerController.globalVariable.solveCount == 0 {
@@ -83,7 +116,7 @@ class StatsController: UITableViewController {
             intSolveArray = []
             self.tableView.reloadData()
         }
-        intSolveArray = solveArray.map { Float($0)!}
+        intSolveArray = solveArray.map { Double($0)!}
         print("Solve List: \(String(describing: intSolveArray))")
     }
     
@@ -109,6 +142,8 @@ class StatsController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        indexNumber = indexPath.row
+        performSegue(withIdentifier: "statSegue", sender: self)
     }
     
 }
