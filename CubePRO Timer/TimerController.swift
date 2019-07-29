@@ -41,20 +41,20 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet var solveLabel: UILabel!
     
     @IBAction func audioTapped(_ sender: Any) {
-        
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: lang))
-        
         if audioEngine.isRunning {
             audioEngine.stop()
+            wordsLabel.textColor = UIColor.white
             recognitionRequest.endAudio()
             audioButton.isEnabled = false
         } else {
+            wordsLabel.textColor = UIColor.black
             startRecording()
         }
         if wordsLabel.text! == "New scramble" {
             generateScramble()
         }
-        if wordsLabel.text! == "Delete solve" {
+        else if wordsLabel.text! == "Delete solve" {
             if self.solves.count == 0 {
                 print("No Solves")
                 self.defaults.set(self.solves, forKey: "SolvesArray")
@@ -86,7 +86,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 globalVariable.solveTimes = self.solves
             }
         }
-        if wordsLabel.text! == "Reset session" {
+        else if wordsLabel.text! == "Reset session" {
             self.solves.removeAll()
             self.solveLabel.text = "Solves: " + String(self.solves.count)
             self.defaults.set(self.solves, forKey: "SolvesArray")
@@ -152,7 +152,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         } catch {
             print("error")
         }
-        wordsLabel.text = "Say Something"
+        wordsLabel.text = ""
         
     }
     
@@ -179,6 +179,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     
     func startTimer() {
         if start == true {
+            audioButton.isEnabled = false
             counter = 0.0
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
             isPlaying = true
@@ -192,6 +193,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         timer.invalidate()
         isPlaying = false
         holdPossible = true
+        audioButton.isEnabled = true
     }
     
     @objc func UpdateTimer() {
@@ -269,6 +271,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        wordsLabel.text! = ""
         globalVariable.solveCount = solves.count
         globalVariable.solveTimes = solves
         if timeLabel.text != "Time" {
@@ -286,7 +289,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        wordsLabel.text! = ""
         audioButton.isEnabled = false
         speechRecognizer?.delegate = self as SFSpeechRecognizerDelegate
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: lang))
@@ -305,6 +308,8 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 
             case .notDetermined:
                 isButtonEnabled = false
+            @unknown default:
+                fatalError()
             }
             
             OperationQueue.main.addOperation() {
