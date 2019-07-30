@@ -479,6 +479,7 @@ class StatsController: UITableViewController {
         }
         intSolveArray = solveArray.map { Double($0)!}
         print("Solve List: \(String(describing: intSolveArray))")
+        print("DateAndTime List: \(String(describing: TimerController.globalVariable.dateAndTime))")
     
     }
     

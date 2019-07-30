@@ -62,90 +62,112 @@ class DescriptionController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "descCell", for: indexPath)
         if newCount == 0 {
             cell.textLabel?.text = ""
+            cell.detailTextLabel?.text = ""
         }
         else {
             if mainLabel.text! == "Best Time: \(numbSolves[indexNumber].result)" {
                 newArray = TimerController.globalVariable.solveTimes
+                let indexOfMin = newArray.firstIndex(of: newArray.min()!)
                 cell.textLabel?.text = newArray.min()
+                cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexOfMin!]
             }
             else if mainLabel.text! == "Worst Time: \(numbSolves[indexNumber].result)" {
                 newArray = TimerController.globalVariable.solveTimes
+                let indexOfMax = newArray.firstIndex(of: newArray.max()!)
                 cell.textLabel?.text = newArray.max()
+                cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexOfMax!]
             }
             else if mainLabel.text! == "Current Average of 5: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 5 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 5 {
                     cell.textLabel?.text = currentAO5[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Best Average of 5: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 5 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 5 {
                     cell.textLabel?.text = bestAO5[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Current Average of 12: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 12 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 12 {
                     cell.textLabel?.text = currentAO12[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Best Average of 12: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 12 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 12 {
                     cell.textLabel?.text = bestAO12[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Current Average of 100: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 100 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 100 {
                     cell.textLabel?.text = currentAO100[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Best Average of 100: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 100 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 100 {
                     cell.textLabel?.text = bestAO100[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Current Average of 1000: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 1000 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 1000 {
                     cell.textLabel?.text = currentAO1000[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else if mainLabel.text! == "Best Average of 1000: \(numbSolves[indexNumber].result)" {
                 if TimerController.globalVariable.solveCount == 1000 {
                     newArray = TimerController.globalVariable.solveTimes
                     cell.textLabel?.text = newArray[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
                 if TimerController.globalVariable.solveCount > 1000 {
                     cell.textLabel?.text = bestAO1000[indexPath.row]
+                    cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
                 }
             }
             else {
                 cell.textLabel?.text = newArray[indexPath.row]
+                cell.detailTextLabel?.text = TimerController.globalVariable.dateAndTime[indexPath.row]
             }
         }
         return cell

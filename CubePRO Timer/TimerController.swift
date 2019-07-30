@@ -19,11 +19,13 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     private var audioEngine = AVAudioEngine()
     var lang: String = "en-US"
     
+    var constantDateAndTime : [String] = []
     
     
     struct globalVariable {
         static var solveCount : Int = 0
         static var solveTimes : [String] = []
+        
         static var AO5 : [String] = []
         static var BAO5 : [String] = []
         static var AO12 : [String] = []
@@ -32,6 +34,17 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         static var BAO100 : [String] = []
         static var AO1000 : [String] = []
         static var BAO1000 : [String] = []
+        
+        static var calendarDate : String = ""
+        static var time : String = ""
+        static var hour : Int = 0
+        static var minute : Int = 0
+        static var second : Int = 0
+        static var month : Int = 0
+        static var day : Int = 0
+        static var year : Int = 0
+        
+        static var dateAndTime : [String] = []
     }
     
     func secondsToHoursMinutesSeconds (seconds : Double) -> (Int, Float) {
@@ -69,6 +82,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
+                globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                self.constantDateAndTime = globalVariable.dateAndTime
+                self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             }
             if self.timeLabel.text == "Time" && self.solves.count != 0{
                 self.solves.remove(at: self.solves.count-1)
@@ -76,6 +92,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.defaults.set(self.solves, forKey: "SolvesArray")
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
+                globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                self.constantDateAndTime = globalVariable.dateAndTime
+                self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             }
             if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == true{
                 self.stopTimer()
@@ -85,6 +104,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
+                globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                self.constantDateAndTime = globalVariable.dateAndTime
+                self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             }
             if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == false{
                 self.solveLabel.text = "Solves: " + String(self.solves.count)
@@ -92,6 +114,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
+                globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                self.constantDateAndTime = globalVariable.dateAndTime
+                self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             }
         }
         else if wordsLabel.text! == "Reset session" {
@@ -101,6 +126,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
             self.timeLabel.text = "Time"
             globalVariable.solveCount = self.solves.count
             globalVariable.solveTimes = self.solves
+            globalVariable.dateAndTime = []
+            self.constantDateAndTime = globalVariable.dateAndTime
+            self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             self.generateScramble()
         }
     }
@@ -279,6 +307,16 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if let times = defaults.array(forKey: "TimesArray") as? [String] {
+            constantDateAndTime = times
+        }
+        if solves.count == 0 {
+            constantDateAndTime = []
+        }
+        else {
+            globalVariable.dateAndTime = constantDateAndTime
+        }
+        
         wordsLabel.text! = ""
         globalVariable.solveCount = solves.count
         globalVariable.solveTimes = solves
@@ -297,6 +335,15 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let times = defaults.array(forKey: "TimesArray") as? [String] {
+            constantDateAndTime = times
+        }
+        if solves.count == 0 {
+            constantDateAndTime = []
+        }
+        else {
+            globalVariable.dateAndTime = constantDateAndTime
+        }
         wordsLabel.text! = ""
         audioButton.isEnabled = false
         speechRecognizer?.delegate = self as SFSpeechRecognizerDelegate
@@ -406,6 +453,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.timeLabel.text = "Time"
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
+                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                    self.constantDateAndTime = globalVariable.dateAndTime
+                    self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
                 }
                 if self.timeLabel.text == "Time" && self.solves.count != 0{
                     self.solves.remove(at: self.solves.count-1)
@@ -413,6 +463,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.defaults.set(self.solves, forKey: "SolvesArray")
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
+                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                    self.constantDateAndTime = globalVariable.dateAndTime
+                    self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == true{
                     self.stopTimer()
@@ -422,6 +475,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.timeLabel.text = "Time"
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
+                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                    self.constantDateAndTime = globalVariable.dateAndTime
+                    self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == false{
                     self.solveLabel.text = "Solves: " + String(self.solves.count)
@@ -429,6 +485,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.timeLabel.text = "Time"
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
+                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
+                    self.constantDateAndTime = globalVariable.dateAndTime
+                    self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
                 }
             })
             
@@ -488,6 +547,26 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
             self.defaults.set(self.solves, forKey: "SolvesArray")
             globalVariable.solveCount = solves.count
             globalVariable.solveTimes = solves
+            
+            let date = Date()
+            let calendar = Calendar.current
+            
+            globalVariable.hour = calendar.component(.hour, from: date)
+            globalVariable.minute = calendar.component(.minute, from: date)
+            globalVariable.second = calendar.component(.second, from: date)
+            
+            globalVariable.month = calendar.component(.month, from: date)
+            globalVariable.day = calendar.component(.day, from: date)
+            globalVariable.year = calendar.component(.year, from: date)
+            
+            
+            globalVariable.calendarDate = "\(globalVariable.month)/\(globalVariable.day)/\(globalVariable.year)"
+            globalVariable.time = "\(globalVariable.hour):\(globalVariable.minute):\(globalVariable.second)"
+            globalVariable.dateAndTime.append("\(globalVariable.calendarDate) at \(globalVariable.time)")
+            constantDateAndTime = globalVariable.dateAndTime
+            self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
+            
+            
             generateScramble()
             
         }
@@ -528,6 +607,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
+                globalVariable.dateAndTime = []
+                self.constantDateAndTime = globalVariable.dateAndTime
+                self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
                 self.generateScramble()
             })
             reset.addAction(No)
