@@ -74,13 +74,15 @@ class StatsController: UITableViewController {
                     for j in index...index+4 {
                         fiveaverage.append(sortedIntArray![j])
                     }
-                    print(fiveaverage)
+                    var m : [String] = []
+                    for item in fiveaverage {
+                        m.append(String(item))
+                    }
+                    TimerController.globalVariable.BAO5 = m
                     fiveaverage.remove(at: (fiveaverage.firstIndex(of: fiveaverage.min()!))!)
                     fiveaverage.remove(at: (fiveaverage.firstIndex(of: fiveaverage.max()!))!)
-                    print(fiveaverage)
                     let total3 = fiveaverage.reduce(0,+)
                     bestAverage = total3/3
-                    print("Average: \(bestAverage)")
                     bestFiveArray.append(bestAverage)
                 }
                 let numberOneAverage = bestFiveArray.min()!
@@ -90,6 +92,12 @@ class StatsController: UITableViewController {
                 
                 
                 let fiveArray = intSolveArray.suffix(5)
+                let h = Array(fiveArray)
+                var m : [String] = []
+                for item in h {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.AO5 = m
                 var g = fiveArray.sorted()
                 g.remove(at:0)
                 g.remove(at: fiveArray.count-2)
@@ -98,6 +106,7 @@ class StatsController: UITableViewController {
                 let roundedAverage = Double(round(100*average)/100)
                 let normalRoundedAverage = String(format: "%.2f", roundedAverage)
                 numbSolves[4].result = normalRoundedAverage
+                self.tableView.reloadData()
             }
             
             if solveArray.count > 11 {
@@ -110,13 +119,15 @@ class StatsController: UITableViewController {
                     for j in index...index+11 {
                         twelveaverage.append(sortedIntArray![j])
                     }
-                    print(twelveaverage)
+                    var m : [String] = []
+                    for item in twelveaverage {
+                        m.append(String(item))
+                    }
+                    TimerController.globalVariable.BAO12 = m
                     twelveaverage.remove(at: (twelveaverage.firstIndex(of: twelveaverage.min()!))!)
                     twelveaverage.remove(at: (twelveaverage.firstIndex(of: twelveaverage.max()!))!)
-                    print(twelveaverage)
                     let total10 = twelveaverage.reduce(0,+)
                     bestAverage = total10/10
-                    print("Average: \(bestAverage)")
                     bestTwelveArray.append(bestAverage)
                 }
                 let numberOneAverage = bestTwelveArray.min()!
@@ -147,9 +158,13 @@ class StatsController: UITableViewController {
                     for j in index...index+99 {
                         hundredaverage.append(sortedIntArray![j])
                     }
+                    var m : [String] = []
+                    for item in hundredaverage {
+                        m.append(String(item))
+                    }
+                    TimerController.globalVariable.BAO100 = m
                     hundredaverage.remove(at: (hundredaverage.firstIndex(of: hundredaverage.min()!))!)
                     hundredaverage.remove(at: (hundredaverage.firstIndex(of: hundredaverage.max()!))!)
-                    print(hundredaverage)
                     let total98 = hundredaverage.reduce(0,+)
                     bestAverage = total98/98
                     bestHundredArray.append(bestAverage)
@@ -162,14 +177,21 @@ class StatsController: UITableViewController {
                 
                 
                 let hundredArray = intSolveArray.suffix(100)
+                let h = Array(hundredArray)
+                var m : [String] = []
+                for item in h {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.AO100 = m
                 var g = hundredArray.sorted()
                 g.remove(at:0)
                 g.remove(at: hundredArray.count-2)
                 let total = g.reduce(0, +)
-                let average = total/98
+                let average = total/Double(g.count)
                 let roundedAverage = Double(round(100*average)/100)
                 let normalRoundedAverage = String(format: "%.2f", roundedAverage)
-                numbSolves[8].result = normalRoundedAverage
+                numbSolves[10].result = normalRoundedAverage
+                self.tableView.reloadData()
             }
             
             if solveArray.count > 999 {
@@ -182,9 +204,13 @@ class StatsController: UITableViewController {
                     for j in index...index+999 {
                         thousandaverage.append(sortedIntArray![j])
                     }
+                    var m : [String] = []
+                    for item in thousandaverage {
+                        m.append(String(item))
+                    }
+                    TimerController.globalVariable.BAO1000 = m
                     thousandaverage.remove(at: (thousandaverage.firstIndex(of: thousandaverage.min()!))!)
                     thousandaverage.remove(at: (thousandaverage.firstIndex(of: thousandaverage.max()!))!)
-                    print(thousandaverage)
                     let total998 = thousandaverage.reduce(0,+)
                     bestAverage = total998/998
                     bestthousandArray.append(bestAverage)
@@ -197,14 +223,21 @@ class StatsController: UITableViewController {
                 
                 
                 let thousandArray = intSolveArray.suffix(1000)
+                let h = Array(thousandArray)
+                var m : [String] = []
+                for item in h {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.AO1000 = m
                 var g = thousandArray.sorted()
                 g.remove(at:0)
                 g.remove(at: thousandArray.count-2)
                 let total = g.reduce(0, +)
-                let average = total/998
+                let average = total/Double(g.count)
                 let roundedAverage = Double(round(100*average)/100)
                 let normalRoundedAverage = String(format: "%.2f", roundedAverage)
                 numbSolves[10].result = normalRoundedAverage
+                self.tableView.reloadData()
             }
         }
         
@@ -215,9 +248,9 @@ class StatsController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
         numbOfSolves = TimerController.globalVariable.solveCount
         solveArray = TimerController.globalVariable.solveTimes
+        self.tableView.reloadData()
         intSolveArray = solveArray.map { Double($0)!}
         numbSolves[0].result = String(numbOfSolves)
         if intSolveArray.count == 0 {
@@ -253,7 +286,7 @@ class StatsController: UITableViewController {
             let normalRoundedAverage = String(format: "%.2f", roundedAverage)
             numbSolves[1].result = normalRoundedAverage
         }
-//
+
         if solveArray.count > 4 {
             var fiveaverage : [Double] = []
             var bestAverage = 0.00
@@ -264,13 +297,15 @@ class StatsController: UITableViewController {
                 for j in index...index+4 {
                     fiveaverage.append(sortedIntArray![j])
                 }
-                print(fiveaverage)
+                var m : [String] = []
+                for item in fiveaverage {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.BAO5 = m
                 fiveaverage.remove(at: (fiveaverage.firstIndex(of: fiveaverage.min()!))!)
                 fiveaverage.remove(at: (fiveaverage.firstIndex(of: fiveaverage.max()!))!)
-                print(fiveaverage)
                 let total3 = fiveaverage.reduce(0,+)
                 bestAverage = total3/3
-                print("Average: \(bestAverage)")
                 bestFiveArray.append(bestAverage)
             }
             let numberOneAverage = bestFiveArray.min()!
@@ -281,14 +316,21 @@ class StatsController: UITableViewController {
             
             
             let fiveArray = intSolveArray.suffix(5)
+            let h = Array(fiveArray)
+            var m : [String] = []
+            for item in h {
+                m.append(String(item))
+            }
+            TimerController.globalVariable.AO5 = m
             var g = fiveArray.sorted()
             g.remove(at:0)
             g.remove(at: fiveArray.count-2)
             let total = g.reduce(0, +)
-            let average = total/3
+            let average = total/Double(g.count)
             let roundedAverage = Double(round(100*average)/100)
             let normalRoundedAverage = String(format: "%.2f", roundedAverage)
             numbSolves[4].result = normalRoundedAverage
+            self.tableView.reloadData()
         }
         
         if solveArray.count > 11 {
@@ -301,13 +343,15 @@ class StatsController: UITableViewController {
                 for j in index...index+11 {
                     twelveaverage.append(sortedIntArray![j])
                 }
-                print(twelveaverage)
+                var m : [String] = []
+                for item in twelveaverage {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.BAO12 = m
                 twelveaverage.remove(at: (twelveaverage.firstIndex(of: twelveaverage.min()!))!)
                 twelveaverage.remove(at: (twelveaverage.firstIndex(of: twelveaverage.max()!))!)
-                print(twelveaverage)
                 let total10 = twelveaverage.reduce(0,+)
                 bestAverage = total10/10
-                print("Average: \(bestAverage)")
                 bestTwelveArray.append(bestAverage)
             }
             let numberOneAverage = bestTwelveArray.min()!
@@ -318,14 +362,21 @@ class StatsController: UITableViewController {
             
             
             let twelveArray = intSolveArray.suffix(12)
+            let h = Array(twelveArray)
+            var m : [String] = []
+            for item in h {
+                m.append(String(item))
+            }
+            TimerController.globalVariable.AO12 = m
             var g = twelveArray.sorted()
             g.remove(at:0)
             g.remove(at: twelveArray.count-2)
             let total = g.reduce(0, +)
-            let average = total/10
+            let average = total/Double(g.count)
             let roundedAverage = Double(round(100*average)/100)
             let normalRoundedAverage = String(format: "%.2f", roundedAverage)
             numbSolves[6].result = normalRoundedAverage
+            self.tableView.reloadData()
         }
         
         if solveArray.count > 99 {
@@ -338,9 +389,13 @@ class StatsController: UITableViewController {
                 for j in index...index+99 {
                     hundredaverage.append(sortedIntArray![j])
                 }
+                var m : [String] = []
+                for item in hundredaverage {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.BAO100 = m
                 hundredaverage.remove(at: (hundredaverage.firstIndex(of: hundredaverage.min()!))!)
                 hundredaverage.remove(at: (hundredaverage.firstIndex(of: hundredaverage.max()!))!)
-                print(hundredaverage)
                 let total98 = hundredaverage.reduce(0,+)
                 bestAverage = total98/98
                 bestHundredArray.append(bestAverage)
@@ -353,16 +408,69 @@ class StatsController: UITableViewController {
             
             
             let hundredArray = intSolveArray.suffix(100)
+            let h = Array(hundredArray)
+            var m : [String] = []
+            for item in h {
+                m.append(String(item))
+            }
+            TimerController.globalVariable.AO100 = m
             var g = hundredArray.sorted()
             g.remove(at:0)
             g.remove(at: hundredArray.count-2)
             let total = g.reduce(0, +)
-            let average = total/98
+            let average = total/Double(g.count)
             let roundedAverage = Double(round(100*average)/100)
             let normalRoundedAverage = String(format: "%.2f", roundedAverage)
-            numbSolves[8].result = normalRoundedAverage
+            numbSolves[10].result = normalRoundedAverage
+            self.tableView.reloadData()
         }
-//
+        
+        if solveArray.count > 999 {
+            var thousandaverage : [Double] = []
+            var bestAverage = 0.00
+            var bestthousandArray : [Double] = []
+            var sortedIntArray = intSolveArray
+            for index in 0...(sortedIntArray!.count-1000){
+                thousandaverage = []
+                for j in index...index+999 {
+                    thousandaverage.append(sortedIntArray![j])
+                }
+                var m : [String] = []
+                for item in thousandaverage {
+                    m.append(String(item))
+                }
+                TimerController.globalVariable.BAO1000 = m
+                thousandaverage.remove(at: (thousandaverage.firstIndex(of: thousandaverage.min()!))!)
+                thousandaverage.remove(at: (thousandaverage.firstIndex(of: thousandaverage.max()!))!)
+                let total998 = thousandaverage.reduce(0,+)
+                bestAverage = total998/998
+                bestthousandArray.append(bestAverage)
+            }
+            let numberOneAverage = bestthousandArray.min()!
+            let bestroundedAverage = Double(round(100*numberOneAverage)/100)
+            let bestnormalRoundedAverage = String(format: "%.2f", bestroundedAverage)
+            numbSolves[11].result = bestnormalRoundedAverage
+            
+            
+            
+            let thousandArray = intSolveArray.suffix(1000)
+            let h = Array(thousandArray)
+            var m : [String] = []
+            for item in h {
+                m.append(String(item))
+            }
+            TimerController.globalVariable.AO1000 = m
+            var g = thousandArray.sorted()
+            g.remove(at:0)
+            g.remove(at: thousandArray.count-2)
+            let total = g.reduce(0, +)
+            let average = total/Double(g.count)
+            let roundedAverage = Double(round(100*average)/100)
+            let normalRoundedAverage = String(format: "%.2f", roundedAverage)
+            numbSolves[10].result = normalRoundedAverage
+            self.tableView.reloadData()
+        }
+
         print("solveCount is: \(TimerController.globalVariable.solveCount)")
         if TimerController.globalVariable.solveCount == 0 {
             solveArray = []

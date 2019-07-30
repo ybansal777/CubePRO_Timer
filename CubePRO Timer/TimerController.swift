@@ -24,6 +24,14 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     struct globalVariable {
         static var solveCount : Int = 0
         static var solveTimes : [String] = []
+        static var AO5 : [String] = []
+        static var BAO5 : [String] = []
+        static var AO12 : [String] = []
+        static var BAO12 : [String] = []
+        static var AO100 : [String] = []
+        static var BAO100 : [String] = []
+        static var AO1000 : [String] = []
+        static var BAO1000 : [String] = []
     }
     
     func secondsToHoursMinutesSeconds (seconds : Double) -> (Int, Float) {
