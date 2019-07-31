@@ -2,7 +2,7 @@
 //  PopUpViewController.swift
 //  CubePRO Timer
 //
-//  Created by Sumeet Bansal on 7/28/19.
+//  Created by Yash Bansal on 7/28/19.
 //  Copyright © 2019 Yash Bansal. All rights reserved.
 //
 

@@ -20,6 +20,7 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     var lang: String = "en-US"
     
     var constantDateAndTime : [String] = []
+    var constantScramble : [String] = []
     
     
     struct globalVariable {
@@ -45,6 +46,8 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         static var year : Int = 0
         
         static var dateAndTime : [String] = []
+        
+        static var scrambleList : [String] = []
     }
     
     func secondsToHoursMinutesSeconds (seconds : Double) -> (Int, Float) {
@@ -310,11 +313,16 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         if let times = defaults.array(forKey: "TimesArray") as? [String] {
             constantDateAndTime = times
         }
+        if let scrambles = defaults.array(forKey: "ScrambleArray") as? [String] {
+            constantScramble = scrambles
+        }
         if solves.count == 0 {
             constantDateAndTime = []
+            constantScramble = []
         }
         else {
             globalVariable.dateAndTime = constantDateAndTime
+            globalVariable.scrambleList = constantScramble
         }
         
         wordsLabel.text! = ""
@@ -338,11 +346,16 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         if let times = defaults.array(forKey: "TimesArray") as? [String] {
             constantDateAndTime = times
         }
+        if let scrambles = defaults.array(forKey: "ScrambleArray") as? [String] {
+            constantScramble = scrambles
+        }
         if solves.count == 0 {
             constantDateAndTime = []
+            constantScramble = []
         }
         else {
             globalVariable.dateAndTime = constantDateAndTime
+            globalVariable.scrambleList = constantScramble
         }
         wordsLabel.text! = ""
         audioButton.isEnabled = false
@@ -456,6 +469,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
+                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
+                    self.constantScramble = globalVariable.scrambleList
+                    self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
                 if self.timeLabel.text == "Time" && self.solves.count != 0{
                     self.solves.remove(at: self.solves.count-1)
@@ -463,9 +479,11 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.defaults.set(self.solves, forKey: "SolvesArray")
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
-                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
+                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
+                    self.constantScramble = globalVariable.scrambleList
+                    self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == true{
                     self.stopTimer()
@@ -478,6 +496,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
+                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
+                    self.constantScramble = globalVariable.scrambleList
+                    self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
                 if self.timeLabel.text != "Time" && self.solves.count != 0 && self.finish == false{
                     self.solveLabel.text = "Solves: " + String(self.solves.count)
@@ -488,6 +509,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
+                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
+                    self.constantScramble = globalVariable.scrambleList
+                    self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
             })
             
@@ -523,10 +547,18 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         if isPlaying == true {
             print("Timer Stop")
             stopTimer()
+            globalVariable.scrambleList.append(scrambleLabel.text!)
+            constantScramble = globalVariable.scrambleList
+            self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
             start = false
             isPlaying = false
             finish = true
-            self.solves.append(self.timeLabel.text!)
+            var newTimeLabel : String = ""
+            if let numberTimeLabel = Double(timeLabel.text!) {
+                newTimeLabel = String(numberTimeLabel)
+            }
+            self.solves.append(newTimeLabel)
+            print(solves)
             if timeLabel.text! != "Time" {
                 let number = Double(timeLabel.text!)
                 print("Number: \(String(describing: number))")
@@ -604,6 +636,9 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.solves.removeAll()
                 self.solveLabel.text = "Solves: " + String(self.solves.count)
                 self.defaults.set(self.solves, forKey: "SolvesArray")
+                globalVariable.scrambleList = []
+                self.constantScramble = globalVariable.scrambleList
+                self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves

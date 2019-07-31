@@ -2,7 +2,7 @@
 //  StatsController.swift
 //  CubePRO Timer
 //
-//  Created by Sumeet Bansal on 7/26/19.
+//  Created by Yash Bansal on 7/26/19.
 //  Copyright © 2019 Yash Bansal. All rights reserved.
 //
 
@@ -480,6 +480,7 @@ class StatsController: UITableViewController {
         intSolveArray = solveArray.map { Double($0)!}
         print("Solve List: \(String(describing: intSolveArray))")
         print("DateAndTime List: \(String(describing: TimerController.globalVariable.dateAndTime))")
+        print("Scramble List: \(String(describing: TimerController.globalVariable.scrambleList))")
     
     }
     

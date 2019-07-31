@@ -2,7 +2,7 @@
 //  DescriptionController.swift
 //  CubePRO Timer
 //
-//  Created by Sumeet Bansal on 7/27/19.
+//  Created by Yash Bansal on 7/27/19.
 //  Copyright © 2019 Yash Bansal. All rights reserved.
 //
 
@@ -24,6 +24,7 @@ class DescriptionController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet var mainLabel: UILabel!
     @IBOutlet var descriptionTableView: UITableView!
+    @IBOutlet var scrambleDesc: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,8 @@ class DescriptionController: UIViewController, UITableViewDelegate, UITableViewD
         bestAO100 = TimerController.globalVariable.BAO100
         currentAO1000 = TimerController.globalVariable.AO1000
         bestAO1000 = TimerController.globalVariable.BAO1000
+        print(currentAO5)
+        print(newArray)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if mainLabel.text! == "Best Time: \(numbSolves[indexNumber].result)" {
@@ -175,6 +178,116 @@ class DescriptionController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        if mainLabel.text! == "Best Time: \(numbSolves[indexNumber].result)" {
+            newArray = TimerController.globalVariable.solveTimes
+            let indexOfMin = newArray.firstIndex(of: newArray.min()!)
+            scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfMin!]
+        }
+        else if mainLabel.text! == "Worst Time: \(numbSolves[indexNumber].result)" {
+            newArray = TimerController.globalVariable.solveTimes
+            let indexOfMax = newArray.firstIndex(of: newArray.max()!)
+            scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfMax!]
+        }
+        else if mainLabel.text! == "Current Average of 5: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 5 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 5 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfCAO5 = newArray.firstIndex(of: currentAO5[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfCAO5!]
+            }
+        }
+        else if mainLabel.text! == "Best Average of 5: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 5 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 5 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfBAO5 = newArray.firstIndex(of: bestAO5[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfBAO5!]
+            }
+        }
+        else if mainLabel.text! == "Current Average of 12: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 12 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 12 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfCAO12 = newArray.firstIndex(of: currentAO12[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfCAO12!]
+            }
+        }
+        else if mainLabel.text! == "Best Average of 12: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 12 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 12 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfBAO12 = newArray.firstIndex(of: bestAO12[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfBAO12!]
+            }
+        }
+        else if mainLabel.text! == "Current Average of 100: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 100 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 100 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfCAO100 = newArray.firstIndex(of: currentAO100[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfCAO100!]
+                
+            }
+        }
+        else if mainLabel.text! == "Best Average of 100: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 100 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 100 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfBAO100 = newArray.firstIndex(of: bestAO100[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfBAO100!]
+            }
+        }
+        else if mainLabel.text! == "Current Average of 1000: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 1000 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 1000 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfCAO1000 = newArray.firstIndex(of: currentAO1000[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfCAO1000!]
+            }
+        }
+        else if mainLabel.text! == "Best Average of 1000: \(numbSolves[indexNumber].result)" {
+            if TimerController.globalVariable.solveCount == 1000 {
+                newArray = TimerController.globalVariable.solveTimes
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+                
+            }
+            if TimerController.globalVariable.solveCount > 1000 {
+                newArray = TimerController.globalVariable.solveTimes
+                let indexOfBAO1000 = newArray.firstIndex(of: bestAO1000[indexPath.row])
+                scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexOfBAO1000!]
+            }
+        }
+        else {
+            scrambleDesc.text! = TimerController.globalVariable.scrambleList[indexPath.row]
+        }
     }
     
     
