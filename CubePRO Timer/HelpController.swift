@@ -16,7 +16,6 @@ class HelpController: UITableViewController {
     let subtitles : [[String]] = [["Hold and Release", "Single Tap", "Swipe Left", "Swipe Right", "Double Tap"], ["Say \"Delete Solve\"","Say \"New Scramble\"", "Say \"Reset Session\"" ]]
     let myImages : [[UIImage]] = [[#imageLiteral(resourceName: "hold"),#imageLiteral(resourceName: "stop"),#imageLiteral(resourceName: "swipeLeft"),#imageLiteral(resourceName: "swipeRight"),#imageLiteral(resourceName: "reset")],[#imageLiteral(resourceName: "voicecommand"),#imageLiteral(resourceName: "voicecommand"),#imageLiteral(resourceName: "voicecommand")]]
     
-    
     @IBOutlet var iconButton: UIBarButtonItem!
     
     @IBAction func buttonTapped(_ sender: Any) {
@@ -47,7 +46,6 @@ class HelpController: UITableViewController {
         myCell.textLabel?.text = gestures[indexPath.section][indexPath.row]
         myCell.imageView?.image = myImages[indexPath.section][indexPath.row]
         myCell.detailTextLabel?.text = subtitles[indexPath.section][indexPath.row]
-        
         return myCell
     }
     
@@ -61,6 +59,23 @@ class HelpController: UITableViewController {
         iconButton.isEnabled = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if (TimerController.globalVariable.appTheme == "White & Red") || (TimerController.globalVariable.appTheme == "Black & Red") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.red
+        }
+        if (TimerController.globalVariable.appTheme == "White & Orange") || (TimerController.globalVariable.appTheme == "Black & Orange") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        }
+        if (TimerController.globalVariable.appTheme == "White & Green") || (TimerController.globalVariable.appTheme == "Black & Green") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatGreenColorDark()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Blue") || (TimerController.globalVariable.appTheme == "Black & Blue") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Purple") || (TimerController.globalVariable.appTheme == "Black & Purple") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        }
+    }
     
     
 }

@@ -22,6 +22,8 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     var constantDateAndTime : [String] = []
     var constantScramble : [String] = []
     
+    var constantTheme : String = ""
+    
     
     struct globalVariable {
         static var solveCount : Int = 0
@@ -48,6 +50,8 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         static var dateAndTime : [String] = []
         
         static var scrambleList : [String] = []
+        
+        static var appTheme : String = ""
     }
     
     func secondsToHoursMinutesSeconds (seconds : Double) -> (Int, Float) {
@@ -68,11 +72,21 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: lang))
         if audioEngine.isRunning {
             audioEngine.stop()
-            wordsLabel.textColor = UIColor.white
+            if self.scrambleLabel.textColor == UIColor.black {
+                wordsLabel.textColor = UIColor.white
+            }
+            else {
+                wordsLabel.textColor = UIColor.black
+            }
             recognitionRequest.endAudio()
             audioButton.isEnabled = false
         } else {
-            wordsLabel.textColor = UIColor.black
+            if self.scrambleLabel.textColor == UIColor.black {
+                wordsLabel.textColor = UIColor.black
+            }
+            else {
+                wordsLabel.textColor = UIColor.white
+            }
             startRecording()
         }
         if wordsLabel.text! == "New scramble" {
@@ -85,7 +99,6 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                 self.timeLabel.text = "Time"
                 globalVariable.solveCount = self.solves.count
                 globalVariable.solveTimes = self.solves
-                globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                 self.constantDateAndTime = globalVariable.dateAndTime
                 self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
             }
@@ -310,6 +323,25 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        timeLabel.textColor = UIColor.black
+        if (globalVariable.appTheme == "White & Red") || (globalVariable.appTheme == "White & Orange") || (globalVariable.appTheme == "White & Green") || (globalVariable.appTheme == "White & Blue") || (globalVariable.appTheme == "White & Purple") {
+            self.defaults.set(globalVariable.appTheme, forKey: "theme")
+            self.view.backgroundColor = UIColor.white
+            scrambleLabel.textColor = UIColor.black
+            timeLabel.textColor = UIColor.black
+            solveLabel.textColor = UIColor.black
+            wordsLabel.textColor = UIColor.black
+            self.tabBarController!.tabBar.barTintColor = UIColor.white
+        }
+        if (globalVariable.appTheme == "Black & Red") || (globalVariable.appTheme == "Black & Orange") || (globalVariable.appTheme == "Black & Green") || (globalVariable.appTheme == "Black & Blue") || (globalVariable.appTheme == "Black & Purple") {
+            self.defaults.set(globalVariable.appTheme, forKey: "theme")
+            self.view.backgroundColor = UIColor.black
+            scrambleLabel.textColor = UIColor.white
+            timeLabel.textColor = UIColor.white
+            solveLabel.textColor = UIColor.white
+            wordsLabel.textColor = UIColor.black
+            self.tabBarController!.tabBar.barTintColor = UIColor.black
+        }
         if let times = defaults.array(forKey: "TimesArray") as? [String] {
             constantDateAndTime = times
         }
@@ -343,6 +375,27 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let themes = defaults.string(forKey: "theme") {
+            globalVariable.appTheme = themes
+        }
+        
+        timeLabel.textColor = UIColor.black
+        if (globalVariable.appTheme == "White & Red") || (globalVariable.appTheme == "White & Orange") || (globalVariable.appTheme == "White & Green") || (globalVariable.appTheme == "White & Blue") || (globalVariable.appTheme == "White & Purple") {
+            self.defaults.set(globalVariable.appTheme, forKey: "theme")
+            self.view.backgroundColor = UIColor.white
+            scrambleLabel.textColor = UIColor.black
+            timeLabel.textColor = UIColor.black
+            solveLabel.textColor = UIColor.black
+        }
+        if (globalVariable.appTheme == "Black & Red") || (globalVariable.appTheme == "Black & Orange") || (globalVariable.appTheme == "Black & Green") || (globalVariable.appTheme == "Black & Blue") || (globalVariable.appTheme == "Black & Purple") {
+            self.defaults.set(globalVariable.appTheme, forKey: "theme")
+            self.view.backgroundColor = UIColor.black
+            scrambleLabel.textColor = UIColor.white
+            timeLabel.textColor = UIColor.white
+            solveLabel.textColor = UIColor.white
+        }
+        
         if let times = defaults.array(forKey: "TimesArray") as? [String] {
             constantDateAndTime = times
         }
@@ -389,7 +442,12 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
         globalVariable.solveCount = solves.count
         globalVariable.solveTimes = solves
         timeLabel.text = "Time"
-        timeLabel.textColor = UIColor.black
+        if self.view.backgroundColor == UIColor.white {
+            timeLabel.textColor = UIColor.black
+        }
+        if self.view.backgroundColor == UIColor.black {
+            timeLabel.textColor = UIColor.white
+        }
         generateScramble()
         if let solve = defaults.array(forKey: "SolvesArray") as? [String] {
             solves = solve
@@ -466,10 +524,8 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     self.timeLabel.text = "Time"
                     globalVariable.solveCount = self.solves.count
                     globalVariable.solveTimes = self.solves
-                    globalVariable.dateAndTime.remove(at: globalVariable.dateAndTime.count - 1)
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
-                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
                     self.constantScramble = globalVariable.scrambleList
                     self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
@@ -481,7 +537,6 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
                     globalVariable.solveTimes = self.solves
                     self.constantDateAndTime = globalVariable.dateAndTime
                     self.defaults.set(self.constantDateAndTime, forKey: "TimesArray")
-                    globalVariable.scrambleList.remove(at: globalVariable.scrambleList.count - 1)
                     self.constantScramble = globalVariable.scrambleList
                     self.defaults.set(self.constantScramble, forKey: "ScrambleArray")
                 }
@@ -532,12 +587,22 @@ class TimerController: UIViewController, SFSpeechRecognizerDelegate {
             if press.state == .ended {
                 print("Timer Start")
                 start = true
-                self.timeLabel.textColor = UIColor.black
+                if self.scrambleLabel.textColor == UIColor.white {
+                    self.timeLabel.textColor = UIColor.white
+                }
+                if self.scrambleLabel.textColor == UIColor.black {
+                    self.timeLabel.textColor = UIColor.black
+                }
                 startTimer()
                 
             }
             if isPlaying == true {
-                self.timeLabel.textColor = UIColor.black
+                if self.scrambleLabel.textColor == UIColor.white {
+                    self.timeLabel.textColor = UIColor.white
+                }
+                if self.scrambleLabel.textColor == UIColor.black {
+                    self.timeLabel.textColor = UIColor.black
+                }
             }
         }
     }

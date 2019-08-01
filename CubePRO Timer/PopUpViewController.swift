@@ -9,6 +9,8 @@
 import UIKit
 
 class PopUpViewController: UIViewController {
+    
+    let defaults = UserDefaults.standard
 
     @IBAction func closePopUp(_ sender: Any) {
         self.view.removeFromSuperview()

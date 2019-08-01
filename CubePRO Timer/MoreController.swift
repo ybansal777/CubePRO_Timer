@@ -10,11 +10,12 @@ import UIKit
 
 class MoreController: UITableViewController {
     
-    let settings : [[String]] = [["CubePRO Timer Version:",""],["Timer Theme"],["Rate App"]]
-    let descriptions : [[String]] = [["1.0.0"],[""],[""]]
+    let settings : [[String]] = [["CubePRO Timer Version:",""],["Timer Theme"]]
+    let descriptions : [[String]] = [["1.0.0"],[""]]
+    let identities : [String] = ["A"]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,6 +40,9 @@ class MoreController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        let vcName = identities[indexPath.row]
+        let viewController = storyboard?.instantiateViewController(withIdentifier: vcName)
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
     
     
@@ -49,6 +53,23 @@ class MoreController: UITableViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if (TimerController.globalVariable.appTheme == "White & Red") || (TimerController.globalVariable.appTheme == "Black & Red") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.red
+        }
+        if (TimerController.globalVariable.appTheme == "White & Orange") || (TimerController.globalVariable.appTheme == "Black & Orange") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        }
+        if (TimerController.globalVariable.appTheme == "White & Green") || (TimerController.globalVariable.appTheme == "Black & Green") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatGreenColorDark()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Blue") || (TimerController.globalVariable.appTheme == "Black & Blue") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Purple") || (TimerController.globalVariable.appTheme == "Black & Purple") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        }
+    }
     
     
 }

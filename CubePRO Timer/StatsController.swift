@@ -248,6 +248,23 @@ class StatsController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        if (TimerController.globalVariable.appTheme == "White & Red") || (TimerController.globalVariable.appTheme == "Black & Red") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.red
+        }
+        if (TimerController.globalVariable.appTheme == "White & Orange") || (TimerController.globalVariable.appTheme == "Black & Orange") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        }
+        if (TimerController.globalVariable.appTheme == "White & Green") || (TimerController.globalVariable.appTheme == "Black & Green") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatGreenColorDark()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Blue") || (TimerController.globalVariable.appTheme == "Black & Blue") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        }
+        if (TimerController.globalVariable.appTheme == "White & Purple") || (TimerController.globalVariable.appTheme == "Black & Purple") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        }
+        
+        
         numbOfSolves = TimerController.globalVariable.solveCount
         solveArray = TimerController.globalVariable.solveTimes
         self.tableView.reloadData()

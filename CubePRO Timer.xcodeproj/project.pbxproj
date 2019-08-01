@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E44602C22F241C400C66016 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44602B22F241C400C66016 /* SettingsController.swift */; };
 		4E60C77F22ED0BD700AEDBBE /* DescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E60C77E22ED0BD700AEDBBE /* DescriptionController.swift */; };
 		4E60C78122EE6A8A00AEDBBE /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E60C78022EE6A8A00AEDBBE /* PopUpViewController.swift */; };
 		4ED716B722E8F908005C6A23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED716B622E8F908005C6A23 /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		2441EA17DB39AD8543FA0782 /* Pods-CubePRO Timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CubePRO Timer.debug.xcconfig"; path = "Target Support Files/Pods-CubePRO Timer/Pods-CubePRO Timer.debug.xcconfig"; sourceTree = "<group>"; };
+		4E44602B22F241C400C66016 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		4E60C77E22ED0BD700AEDBBE /* DescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionController.swift; sourceTree = "<group>"; };
 		4E60C78022EE6A8A00AEDBBE /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		4ED716B322E8F908005C6A23 /* CubePRO Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CubePRO Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				4ED716D022EA2B35005C6A23 /* HelpController.swift */,
 				4E60C78022EE6A8A00AEDBBE /* PopUpViewController.swift */,
 				4ED716D222EA2B4A005C6A23 /* MoreController.swift */,
+				4E44602B22F241C400C66016 /* SettingsController.swift */,
 				4ED716BA22E8F908005C6A23 /* Main.storyboard */,
 				4ED716BD22E8F909005C6A23 /* Assets.xcassets */,
 				4ED716BF22E8F909005C6A23 /* LaunchScreen.storyboard */,
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E44602C22F241C400C66016 /* SettingsController.swift in Sources */,
 				4ED716D322EA2B4A005C6A23 /* MoreController.swift in Sources */,
 				4ED716DB22EAE0C2005C6A23 /* StatsController.swift in Sources */,
 				4E60C78122EE6A8A00AEDBBE /* PopUpViewController.swift in Sources */,
